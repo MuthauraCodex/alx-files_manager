@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { ObjectId,} from 'mongodb';
 import { env,} from 'process';
 import { v4 as uuidv4,} from 'uuid';
