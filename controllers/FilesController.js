@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
-import { ObjectId,} from 'mongodb';
-import { env,} from 'process';
-import { v4 as uuidv4,} from 'uuid';
+import { ObjectId } from 'mongodb';
+import { env } from 'process';
+import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import mime from 'mime-types';
 import fs from 'fs';
