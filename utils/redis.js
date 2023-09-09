@@ -1,18 +1,12 @@
-/**
- * Contains the class RedisClient.
- */
-import {
-  createClient,
-} from 'redis';
-import {
-  promisify,
-} from 'util';
+import { createClient } from 'redis';
+import { promisify } from 'util';
 
 class RedisClient {
   constructor() {
     this.client = createClient();
+    this.getAsync = promisify(this.client.get).bind(this.client);
     this.client.on('error', (err) => {
-      console.log(err.message);
+      console.log(`Redis client not connected: ${err.message}`);
     });
   }
 
@@ -21,20 +15,21 @@ class RedisClient {
   }
 
   async get(key) {
-    const getAsync = promisify(this.client.get).bind(this.client);
-    return getAsync(key);
+    // takes key string and returns redis value stored in the key
+    return await this.getAsync(key);
   }
 
-  async set(key, value, duration) {
-    const setAsync = promisify(this.client.set).bind(this.client);
-    return setAsync(key, value, 'EX', duration);
+  async set(key, value, timeout) {
+    // takes key, value and timeout as args to store in redis
+    return await this.client.setex(key, timeout, value);
   }
 
   async del(key) {
-    const delAsync = promisify(this.client.del).bind(this.client);
-    return delAsync(key);
+    // takes key and deletes from redis
+    this.client.del(key);
   }
 }
 
 const redisClient = new RedisClient();
+
 export default redisClient;
