@@ -11,7 +11,6 @@ class DBClient {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     }, (err, client) => {
-      
       if (!err) {
         this.db = client.db(database);
       } else {
@@ -27,12 +26,12 @@ class DBClient {
 
   async nbUsers() {
     // returns num of docs in collection called users
-    return await this.db.collection('users').countDocuments();
+    return this.db.collection('users').countDocuments();
   }
 
   async nbFiles() {
     // num of items in the collection files
-    return await this.db.collection('files').countDocuments();
+    return this.db.collection('files').countDocuments();
   }
 }
 
