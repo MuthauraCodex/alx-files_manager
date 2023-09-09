@@ -16,12 +16,12 @@ class RedisClient {
 
   async get(key) {
     // takes key string and returns redis value stored in the key
-    return await this.getAsync(key);
+    return this.getAsync(key);
   }
 
   async set(key, value, timeout) {
     // takes key, value and timeout as args to store in redis
-    return await this.client.setex(key, timeout, value);
+    return this.client.setex(key, timeout, value);
   }
 
   async del(key) {
